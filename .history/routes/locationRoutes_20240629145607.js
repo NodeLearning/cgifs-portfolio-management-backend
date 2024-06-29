@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.post('/locations', authenticate, addLocation);
 router.get('/locations', authenticate, getLocations);
-router.get('/location/:id', authenticate, getLocationById);
 router.put('/locations/:id', authenticate, authorize(['admin']), updateCustomerName);
 router.delete('/locations/:id', authenticate, authorize(['admin']), deleteLocation);
 

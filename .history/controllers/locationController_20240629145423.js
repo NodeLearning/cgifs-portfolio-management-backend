@@ -24,9 +24,7 @@ exports.getLocationById = async (req, res) => {
   const { id } = req.params;
   try{
     const location = await Location.findById(id);
-    res.json({message: "successfully get data", data:location});
-  } catch(error) {
-    res.status(400).send("Error fetching location");
+    res.json({location)};
   }
 }
 
