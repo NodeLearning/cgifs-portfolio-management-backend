@@ -1,0 +1,39 @@
+# Dependency directories
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor directories and files
+.vscode/
+*.code-workspace
+
+# IDE files
+*.idea/
+
+# npm debugging log
+npm-debug.log*
+
+# Yarn integrity file
+yarn-error.log
+
+# dotenv environment variables file
+.env
+
+# production build output
+/build/
+/dist/
+
+# misc
+.sentryclirc
+.env.local
+.eslintcache
+
