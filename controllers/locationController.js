@@ -30,6 +30,21 @@ exports.getLocationById = async (req, res) => {
   }
 }
 
+exports.getByCustomerName = async (req,res) => {
+  const {customerName} = req.params;
+  try {
+    const location = await Location.findOne({customerName});
+
+    if(!location) {
+      return res.status(404).send("Customer not found"); 
+    }
+
+    res.json({message: "successfully get data", data:location});
+  } catch(error) {
+    res.status(400).send("Error fetching location");  
+  }
+}
+
 exports.updateCustomerName = async (req, res) => {
   const { id } = req.params;
   const { customerName } = req.body;
