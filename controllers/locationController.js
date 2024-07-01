@@ -1,5 +1,6 @@
 const Location = require("../models/locationModel");
 
+// Add Location
 exports.addLocation = async (req, res) => {
   const { customerName, latitude, longitude } = req.body;
   try {
@@ -7,29 +8,32 @@ exports.addLocation = async (req, res) => {
     await location.save();
     res.status(201).send("Location saved");
   } catch (error) {
-    res.status(400).send("Error saving location");
+    res.status(400).json({ message: err.message });
   }
 };
 
+// Get All Locations
 exports.getLocations = async (req, res) => {
   try {
     const locations = await Location.find();
-    res.json(locations);
+    res.json({message: "successfully get data", data:locations});
   } catch (error) {
-    res.status(400).send("Error fetching locations");
+    res.status(400).json({ message: err.message });
   }
 };
 
+// Get Location By Id
 exports.getLocationById = async (req, res) => {
   const { id } = req.params;
   try{
     const location = await Location.findById(id);
     res.json({message: "successfully get data", data:location});
   } catch(error) {
-    res.status(400).send("Error fetching location");
+    res.status(400).json({ message: err.message });
   }
 }
 
+// Get Location By Customer Name
 exports.getByCustomerName = async (req,res) => {
   const {customerName} = req.params;
   try {
@@ -41,10 +45,11 @@ exports.getByCustomerName = async (req,res) => {
 
     res.json({message: "successfully get data", data:location});
   } catch(error) {
-    res.status(400).send("Error fetching location");  
+    res.status(400).json({ message: err.message });  
   }
 }
 
+// Update Customer Name
 exports.updateCustomerName = async (req, res) => {
   const { id } = req.params;
   const { customerName } = req.body;
@@ -52,16 +57,40 @@ exports.updateCustomerName = async (req, res) => {
     await Location.findByIdAndUpdate(id, { customerName });
     res.send("Customer name updated");
   } catch (error) {
-    res.status(400).send("Error updating customer name");
+    res.status(400).json({ message: err.message });
   }
 };
 
+// Update Location data
+exports.updateLocation = async (req,res) => {
+  try {
+    const {id} = req.params;
+    const updateData = req.body;
+
+    const updatedLocation = await Location.findByIdAndUpdate(
+      id,
+      { $set: updateData },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedLocation) {
+      return res.status(404).json({ message: "Location not found" });
+    }
+
+    res.json({ message: "Location updated", data: updatedLocation});
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
+// Delete a Location
 exports.deleteLocation = async (req, res) => {
   const { id } = req.params;
   try {
     await Location.findByIdAndDelete(id);
     res.send("Location deleted");
   } catch (error) {
-    res.status(400).send("Error deleting location");
+    res.status(400).json({ message: err.message });
   }
 };
