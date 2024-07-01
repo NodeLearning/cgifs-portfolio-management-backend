@@ -31,6 +31,10 @@ app.use(bodyParser.json());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", locationRoutes);
 
+app.get("/", (req, res) => {  
+  res.json({ message: "Hello! Welcome to the CGIFS Portfolio Management API" 
+  });})
+
 app.use(errorHandler);
 
 mongoose

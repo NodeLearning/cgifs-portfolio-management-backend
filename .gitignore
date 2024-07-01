@@ -36,3 +36,4 @@ npm-debug.log*
 
 # history files
 .history/
+.vercel
