@@ -8,7 +8,7 @@ exports.addLocation = async (req, res) => {
     await location.save();
     res.status(201).send("Location saved");
   } catch (error) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -18,7 +18,7 @@ exports.getLocations = async (req, res) => {
     const locations = await Location.find();
     res.json({message: "successfully get data", data:locations});
   } catch (error) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -29,7 +29,7 @@ exports.getLocationById = async (req, res) => {
     const location = await Location.findById(id);
     res.json({message: "successfully get data", data:location});
   } catch(error) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({ message: error.message });
   }
 }
 
@@ -45,7 +45,7 @@ exports.getByCustomerName = async (req,res) => {
 
     res.json({message: "successfully get data", data:location});
   } catch(error) {
-    res.status(400).json({ message: err.message });  
+    res.status(400).json({ message: error.message });  
   }
 }
 
@@ -57,7 +57,7 @@ exports.updateCustomerName = async (req, res) => {
     await Location.findByIdAndUpdate(id, { customerName });
     res.send("Customer name updated");
   } catch (error) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -78,9 +78,9 @@ exports.updateLocation = async (req,res) => {
     }
 
     res.json({ message: "Location updated", data: updatedLocation});
-  } catch (err) {
-    console.error(err);
-    res.status(400).json({ message: err.message });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ message: error.message });
   }
 }
 
@@ -91,6 +91,6 @@ exports.deleteLocation = async (req, res) => {
     await Location.findByIdAndDelete(id);
     res.send("Location deleted");
   } catch (error) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({ message: error.message });
   }
 };
